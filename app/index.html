@@ -1,0 +1,76 @@
+
+
+<!doctype html>
+<html lang="en" ng-app="todoApp">
+   <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
+      <!-- CSS  File -->
+      <link rel="stylesheet" type="text/css" href="app/styles/main.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+      <script type="text/javascript" src="app/js/app.js"></script>
+      <title>Todo List </title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
+   </head>
+   <body>
+      <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+      <script>
+         var socket = io.connect('http://localhost:8080');
+         
+      </script>
+      <div class="jumbotron jumbotron-fluid bg-hackclub">
+         <div class="container">
+            <h1 class="display-4">Todo List</h1>
+            <p align="right"> BSL Group</p>
+         </div>
+      </div>
+      <div class="container" ng-controller="myCtrl">
+         <div class="row">
+            <div class="col-md-6 offset-md-2">
+               <div class="input-group input-group-lg">
+                  <input  type="text" ng-model="todo.task" class="form-control" placeholder="Write your task description here....." aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+               </div>
+            </div>
+            <div class="col-sm-2">
+               <button type="button" ng-click="createTodo()" class="btn btn-outline-info btn-lg" >Add Task</button>
+            </div>
+            <div class="col-sm-2">
+               <button type="button" ng-click="deleteAllTask()" class="btn btn-danger btn-lg" >Delete all </button>
+
+            </div>
+         </div>
+         <hr>
+         <div>
+            <div class="row" ng-repeat="task in tasks.data">
+               <div class="col-md-7 offset-md-2">
+                  <div class="input-group mb-3">
+                     <div class="input-group-prepend">
+                        <div class="input-group-text">
+                           <input type="checkbox" ng-model="task.status" aria-label="Checkbox for following text input">
+                        </div>
+                     </div>
+                     <h1 ng-class="(task.status) ? 'grayout' : ''" class="form-control">{{task.task}}</h1>
+                     <div class="input-group-append">
+                        <div class="input-group-text bg-danger" ng-click="deleteTask(task)">
+                           <i class="fa fa-trash-o text-white"></i>
+                        </div>
+                     </div>
+                     <div class="input-group-append">
+                        <div class="input-group-text bg-info" ng-click="editTask(task)">
+                           <i class="fa fa-edit text-white"></i>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      </div>
+      </div>
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+   </body>
+</html>
+
